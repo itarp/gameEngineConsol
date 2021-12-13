@@ -1,3 +1,9 @@
+//Проект создания движка для игры
+//Файл main.cpp
+//Дата создания 13.12.2021г.
+//Дата последней редакции 13.12.2021г.
+//Автор Таранов Павел Анатольевич
+//-------------------------------------------------------------------
 #include <stdio.h>
 #include <windows.h>
 
@@ -36,6 +42,22 @@ char caMap[30][120+1] = {
 };
 
 int main(int argc, char *argv[]) {
+  //Получить дескриптор стандартного вывода
+  HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+  //Отключить курсор и сохранить начальные настройки.
+  CONSOLE_CURSOR_INFO structCursorInfo, structCursorInfoTemp;
+  GetConsoleCursorInfo(handle, &structCursorInfo);
+  structCursorInfoTemp = structCursorInfo;
+  structCursorInfo.bVisible = false;
+  SetConsoleCursorInfo(handle, &structCursorInfo);
+
+  //Установить курсор в левый верхний угол экрана
+  COORD cursorPos;
+  cursorPos.X = 0;
+  cursorPos.Y = 0;
+  SetConsoleCursorPosition(handle, cursorPos);
+
   //Вывести карту игрового поля на экран
   printf("%s\n",caMap[0]);
   printf("%s\n",caMap[1]);
@@ -67,5 +89,9 @@ int main(int argc, char *argv[]) {
   printf("%s\n",caMap[27]);
   printf("%s\n",caMap[28]);
   printf("%s\n",caMap[29]);
+
+  //Перед выходом в консоль вернуть курсору начальные настройки
+  SetConsoleCursorInfo(handle, &structCursorInfoTemp);
+
   return 0;
 }
