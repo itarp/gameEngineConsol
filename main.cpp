@@ -9,11 +9,11 @@
 
 //---- START ---- установка значений для настройки параметров игры/
 //Установка размеров карты игрового поля по X и Y
-const int iMapSizeX(50);
+const int iMapSizeX(120);
 const int iMapSizeY(30);
 
 //Установка значений графических псевдосимволов для отображения объектов на карте
-const char cEmpty('.'); //Свободное место для передвижения и размещения объекта
+const char cEmpty(' '); //Свободное место для передвижения и размещения объекта
 const char cWall(219); //Непроходимая стена
 //----  END  ---- ------------------------------------------------/
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
   cursorPos.Y = 0;
   SetConsoleCursorPosition(handle, cursorPos);
 
-  //Карта инициализируется бордюром - '#' и свободным полем для размещения объектов - символом пробел ' '
+  //Карта инициализируется бордюром - cWall и свободным полем для размещения и передвижения объектов - cEmpty
   for(int posY = 0; posY < iMapSizeY; posY++) {
     for(int posX = 0; posX < iMapSizeX; posX++)
       if (posY == 0 || posY == iMapSizeY - 1 || posX == 0 || posX == iMapSizeX - 1)
