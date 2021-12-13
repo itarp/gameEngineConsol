@@ -7,8 +7,19 @@
 #include <stdio.h>
 #include <windows.h>
 
+//---- START ---- установка значений для настройки параметров игры/
+//Установка размеров карты игрового поля по X и Y
+const int iMapSizeX(50);
+const int iMapSizeY(30);
+
+//Установка значений графических псевдосимволов для отображения объектов на карте
+const char cEmpty('.'); //Свободное место для передвижения и размещения объекта
+const char cWall(219); //Непроходимая стена
+//----  END  ---- ------------------------------------------------/
+
+
 // Карта игрового поля имеет фиксированный размер
-char caMap[30][120+1];
+char caMap[iMapSizeY][iMapSizeX + 1];
 
 int main(int argc, char *argv[]) {
   //Получить дескриптор стандартного вывода
@@ -28,13 +39,13 @@ int main(int argc, char *argv[]) {
   SetConsoleCursorPosition(handle, cursorPos);
 
   //Карта инициализируется бордюром - '#' и свободным полем для размещения объектов - символом пробел ' '
-  for(int posY = 0; posY < 30; posY++) {
-    for(int posX = 0; posX < 120; posX++)
-      if (posY == 0 || posY == 29 || posX == 0 || posX == 119)
-	caMap[posY][posX] = '#';
+  for(int posY = 0; posY < iMapSizeY; posY++) {
+    for(int posX = 0; posX < iMapSizeX; posX++)
+      if (posY == 0 || posY == iMapSizeY - 1 || posX == 0 || posX == iMapSizeX - 1)
+	caMap[posY][posX] = cWall;
       else
-	caMap[posY][posX] = ' ';
-    caMap[posY][120] = '\0';
+	caMap[posY][posX] = cEmpty;
+    caMap[posY][iMapSizeX] = '\0';
   }
 
   //Вывести карту игрового поля на экран
